@@ -939,7 +939,7 @@ xœuMOÂ@†ïû+Ş#Mjİv¥W/Æ˜4ñÂe,Úİ:İ–Ä_o %ÊÇyæy¿>•††±&±“	ÌÔ$SCïpj^(¢TÉØêÉÌ
 endstream
 endobj
 204 0 obj
-<</AP<</N 205 0 R >>/Border[ 0 0 0]/Contents(1\) prototype?, architectuurdocument\nfinaliseren, mogelijkheden bekijken hoe we data zullen sturen en uitlezen naar MQTT \nbroker\n\n2 en 3\)3D prints maken, MQTT script opstellen)/DA(/Helv 27 Tf 0 Tc 30.24 TL 0 0.470588 0.831373 rg )/F 4/PDFIUM_HasGeneratedAP true/Rect[ 513.113 740.351 917.124 1013.21]/Rotate 0/Subtype/FreeText/Type/Annot>>
+<</AP<</N 221 0 R >>/Border[ 0 0 0]/Contents(1\) prototype?, architectuurdocument\nfinaliseren, elektrisch schema opstellen,\n mogelijkheden bekijken hoe we data zullen sturen en uitlezen naar MQTT \nbroker\n\n2 en 3\)3D prints maken, MQTT script opstellen)/DA( /Helv 27 Tf 0 Tc 30.24 TL 0 0.466667 0.831373 rg )/F 4/PDFIUM_HasGeneratedAP true/Rect[ 513.095 831.36 1423.16 1013.27]/Rotate 0/Subtype/FreeText/Type/Annot>>
 endobj
 205 0 obj
 <</BBox[ 0 0 404.01 272.858]/Filter/FlateDecode/FormType 1/Length 260/Matrix[ 1 0 0 1 0 0]/Resources<</Font<</Helv 166 0 R >>>>/Subtype/Form/Type/XObject>>stream
@@ -1018,6 +1018,11 @@ endobj
 <</BBox[ 0 0 891.795 60.8405]/Filter/FlateDecode/FormType 1/Length 203/Matrix[ 1 0 0 1 0 0]/Resources<</Font<</Helv 166 0 R >>>>/Subtype/Form/Type/XObject>>stream
 xœÌÁNƒ0 à{Ÿâ?²dÖÒBã–˜x56ñ²ÒßYdÛF’=½Ñï¾o¡ Ğµì†VÉ¾Q-ñ†(ÎN(¸I(ÈÆZk;e {S›Né*Œ•j›ÖÀyñøÌåºƒûÕkS¶ÈÜ
 oïLGx~	‘Ø3cK BÄN~¡ÖÇÜ,Œ’µÑeusY#3îağDŞRˆ%cÇ">Y°¥uæT°nWzrñØ™<.Õ=§©„5æËá¿râEüjÄGŠ
+endstream
+endobj
+221 0 obj
+<</BBox[ 0 0 910.065 181.908]/Filter/FlateDecode/FormType 1/Length 268/Matrix[ 1 0 0 1 0 0]/Resources<</Font<</Helv 166 0 R >>>>/Subtype/Form/Type/XObject>>stream
+xœmĞ½jÃ0à]OqÆRW²ÿL…ÒB—A—,Š|+–%W’[š§/”./‡óÁ¹ŸŒƒ£¼àÕ¢EËDÂ<{VŒCÆQl«ªªj.Q4RÈºlKÄ3ã»ºØÖeÕ±Ç7r_(k¨[‰ÃS9äŸ‰6ĞÑô6“Éó»`æ‘|^C]Çƒä…%çÛEY¬×Î&Šä7 GC6™Éô4j„)erüæ~c8“³—¡§<4ØË@} |:5®ó å9’yÌ6;º’‡×:â}¯îëÇŠw³¿[´Íí«r‘åa-_0EësÂ¨‡eÔÍO&Ú)ÿÏ¹™¯ŠíÙ/}ûs`
 endstream
 endobj
 xref
@@ -1211,7 +1216,7 @@ xref
 0000091796 00000 n
 192 1
 0000092106 00000 n
-194 27
+194 28
 0000092459 00000 n
 0000092696 00000 n
 0000092995 00000 n
@@ -1223,24 +1228,25 @@ xref
 0000094604 00000 n
 0000095062 00000 n
 0000095543 00000 n
-0000095953 00000 n
-0000096408 00000 n
-0000096832 00000 n
-0000097266 00000 n
-0000097681 00000 n
-0000098124 00000 n
-0000098469 00000 n
-0000098862 00000 n
-0000099176 00000 n
-0000099542 00000 n
-0000099848 00000 n
-0000100214 00000 n
-0000100556 00000 n
-0000100917 00000 n
-0000101247 00000 n
-0000101646 00000 n
+0000095984 00000 n
+0000096439 00000 n
+0000096863 00000 n
+0000097297 00000 n
+0000097712 00000 n
+0000098155 00000 n
+0000098500 00000 n
+0000098893 00000 n
+0000099207 00000 n
+0000099573 00000 n
+0000099879 00000 n
+0000100245 00000 n
+0000100587 00000 n
+0000100948 00000 n
+0000101278 00000 n
+0000101677 00000 n
+0000102076 00000 n
 trailer
-<</Info 5 0 R /Root 128 0 R /Size 221/ID[<E32D396CF296AF4FB03BCC1E6BFEFEBA><1D5B215B64A708B9355A0E012451D51F>]>>
+<</Info 5 0 R /Root 128 0 R /Size 222/ID[<E32D396CF296AF4FB03BCC1E6BFEFEBA><1D5B215B64A708B97AE969BBA4991CF0>]>>
 startxref
-102045
+102540
 %%EOF
