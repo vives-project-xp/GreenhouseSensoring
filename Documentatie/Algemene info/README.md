@@ -3,6 +3,8 @@ Er wordt gebruik gemaakt van de ESP32 Devkit V1 board als microcontroller voor d
 <br></br>
 <img src="./Afbeeldingen/ESP-adapter.webp"></img>
 <br></br>
+<h1>ESP32</h1>
+Minimum geleverde power supply is 500 mA.
 <h1>Sensoren</h1>
 De volgende 6 sensoren worden gebruikt voor het monitoren van de planten:
 
@@ -16,9 +18,14 @@ De volgende 6 sensoren worden gebruikt voor het monitoren van de planten:
 </ul>
 
 <h2>Lichtintensiteitsensor</h2>
-
+<img src="./Afbeeldingen/lichtsensor.png"></img>
 <ul>
-<li><b>Beschrijving:</b> Deze sensor werkt op I2C, werkt op het 0x5C adres (indien ADDR hoog is) of het 0X23 adres (indien ADDR laag is) (bron: datasheet p. 10).</li>
-<li><b>Elektrische eigenschappen:</b></li>
+<li><b>Beschrijving:</b> Deze sensor meet de lichtsterkte in de serre, en zal op een afstandje van de ESP bevestigd worden in een 3D geprint boxje. 
+Deze sensor werkt op I2C, werkt op het 0x5C adres (indien ADDR hoog is) of het 0X23 adres (indien ADDR laag is) (bron: datasheet p. 10).</li>
+<li><b>Elektrische eigenschappen:</b>Geleverde spanning ligt tussen 3V en 5V.</li>
 <li><b>Overig:</b></li>
+<li><b>Bronnen:</b></li>
+<ul>
+<li>Voorbeeldcode met Arduino: https://randomnerdtutorials.com/guide-for-ds18b20-temperature-sensor-with-arduino/</li>
+<li>https://www.instructables.com/How-to-use-DS18B20-Temperature-Sensor-Arduino-Tuto/</li>
 </ul>
