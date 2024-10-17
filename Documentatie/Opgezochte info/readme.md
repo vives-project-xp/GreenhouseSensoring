@@ -12,4 +12,10 @@ https://youtu.be/UsLcHSbxf_8
 
 https://www.electroniclinic.com/mh-z19b-ndir-co2-sensor-with-arduino-mhz19b/#:~:text=Infrared%20sensor%20MH-Z19B%20is%20a%20universally
 
+4. Bodemvochtsensor / temperatuur
+
+https://microcontrollerslab.com/esp32-htu21d-temperature-humidity-sensor-tutorial/
+
+
+
 
