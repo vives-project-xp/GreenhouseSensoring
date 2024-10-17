@@ -15,5 +15,9 @@ De volgende 6 sensoren worden gebruikt voor het monitoren van de planten:
     <li><b>Overig:</b> Er zijn ook een SCL/SDA pin die rechtstreeks op pin D21 en D22 op de ESP aangesloten kunnen worden. Echter is er ook nog een andere sensor (lichtsensor) die ook SCL/SDA. Dit zou geen probleem moeten vormen omdat beide sensoren een ander I2C-adres hebben. Deze sensor werkt op het 0x40 adres. </li>
 </ul>
 
-<h2>Temperatuur- en vochtsensor omgeving</h2>
-Deze sensor werkt op I2C, werkt op het 0x5C adres (indien ADDR hoog is) of het 0X23 adres (indien ADDR laag is) (bron: datasheet p. 10).
+<h2>Lichtintensiteitsensor</h2>
+
+<li><b>Beschrijving:</b> Deze sensor werkt op I2C, werkt op het 0x5C adres (indien ADDR hoog is) of het 0X23 adres (indien ADDR laag is) (bron: datasheet p. 10).</li>
+<li><b>Spanning:</b></li>
+<li><b>Overig:</b></li>
+</ul>
