@@ -2,6 +2,7 @@
 #include <OneWire.h>
 #include <DallasTemperature.h>
 #include <GyverHTU21D.h>
+#include <BH1750.h>
 
 #include "sensor.h"
 #include "connection.h"
@@ -26,9 +27,13 @@ float Celsius = 0;
 //omgevingtemperatuursensor
 GyverHTU21D htu;
 
+//lichtsensor
+BH1750 lightMeter;
+
 void setup()
 {
   bodemTemp.begin(); 
+  lightMeter.begin();
   Serial.begin(9600);
 
   if (!htu.begin()) Serial.println(F("HTU21D error"));
@@ -41,6 +46,7 @@ void setup()
   bodemTempWaarde = HaSensor("soil_temperature", "°C");
   omgevingTempWaarde = HaSensor("ambient_temperature", "°C");
   omgevingVochtWaarde = HaSensor("humidity", "%");
+  lichtWaarde = HaSensor("light", "lx");
   //waardes voor andere sensoren hier
 }
 
@@ -70,6 +76,14 @@ void loop()
   Serial.print("Omgevingsvochtigheid: ");
   Serial.print(hum);
   Serial.println(" %");
+
+  //lichtsensor
+  float lux = lightMeter.readLightLevel();
+  lichtWaarde.setValue(lux);
+  connection.sendData(lichtWaarde);
+  Serial.print("Light: ");
+  Serial.print(lux);
+  Serial.println(" lx");
 
   //waardes andere sensoren verzenden hier
 
