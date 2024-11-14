@@ -15,6 +15,8 @@ De volgende 6 sensoren worden gebruikt voor het monitoren van de planten:
 - **Beschrijving:** Deze sensor (Temperatuur/Vochtigheid Sensor Module Breakout - HTU21D (OT3567)) meet zowel de temperatuur als de luchtvochtigheid in de omgeving van de serre. Hiervoor zal een klein doosje geprint worden om deze veilig op te bergen.
 - **Elektrische eigenschappen:** Gevoed op 3.3V, direct via de ESP. Stroomverbruik ligt tussen 300 en 500 µA in actieve toestand (tussen 0.02 en 0.14 µA in slaapstand).
 - **Overig:** Heeft SCL/SDA-pinnen die rechtstreeks op pin D21 en D22 van de ESP aangesloten kunnen worden. Een andere sensor (lichtsensor) gebruikt ook SCL/SDA, maar beide sensoren hebben een ander I2C-adres, wat geen probleem oplevert. Deze sensor werkt op adres **0x40**.
+- **Bronnen:**
+  - [Verkooppagina Otronic](https://www.otronic.nl/nl/temperatuur-vochtigheid-sensor-module-breakout-htu.html)
 
 ## Lichtintensiteitsensor
 ![Lichtintensiteitssensor](./Afbeeldingen/lichtsensor.png)
@@ -22,6 +24,7 @@ De volgende 6 sensoren worden gebruikt voor het monitoren van de planten:
 - **Beschrijving:** Deze sensor meet de lichtsterkte in de serre en zal op enige afstand van de ESP bevestigd worden in een 3D-geprint doosje. Deze sensor werkt via I2C en heeft twee mogelijke adressen: **0x5C** (als ADDR hoog is) of **0x23** (als ADDR laag is).
 - **Elektrische eigenschappen:** Werkt bij een spanning tussen 3V en 5V.
 - **Bronnen:**
+   - [Verkooppagina Otronic](https://www.otronic.nl/nl/lichtintensiteitssensor-bh1750-16-bit-i2c.html)
   - [Voorbeeldcode met Arduino](https://randomnerdtutorials.com/guide-for-ds18b20-temperature-sensor-with-arduino/)
   - [Instructables Tutorial](https://www.instructables.com/How-to-use-DS18B20-Temperature-Sensor-Arduino-Tuto/)
 
@@ -32,6 +35,7 @@ De volgende 6 sensoren worden gebruikt voor het monitoren van de planten:
 - **Elektrische eigenschappen:** Werkt bij een voeding van 4.5-5.5V DC.
 - **Bronnen:**
   - [Verkooppagina Otronic](https://www.otronic.nl/nl/co2-sensor-mh-z19b-met-kabeltje.html)
+
 
 ## Bodemvochtsensor
 ![bodemvochtsensos](./Afbeeldingen/otronic-bodemvochtsensor-5v.webp)
@@ -56,3 +60,6 @@ De volgende 6 sensoren worden gebruikt voor het monitoren van de planten:
 - **Bronnen:** 
   - [Verkooppagina Mouser](https://www.mouser.be/ProductDetail/DFRobot/SEN0605?qs=sGAEpiMZZMu3sxpa5v1qrmro%252BbykgF%2FHBGnWfOZZDls%3D)
   - [Aansluitschema's](https://how2electronics.com/iot-based-soil-nutrient-monitoring-with-arduino-esp32/#:~:text=So,%20this%20is%20how%20you%20can%20make%20a)
+
+# Schema van de aansluitingen
+![aansluitschema](./Afbeeldingen/aansluitschema.png)
