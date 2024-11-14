@@ -33,6 +33,13 @@ De volgende 6 sensoren worden gebruikt voor het monitoren van de planten:
 - **Bronnen:**
   - [Verkooppagina Otronic](https://www.otronic.nl/nl/co2-sensor-mh-z19b-met-kabeltje.html)
 
+## Bodemvochtsensor
+![bodemvochtsensos](./Afbeeldingen/otronic-bodemvochtsensor-5v.webp)
+- **Beschrijving:** Deze sensor zal de vochtigheid meten van onze grond. Deze wordt gevoed met 5V voeding. Met een signaalkabel worden de gegevens naar de esp gezonden.
+- **Elektrische eigenschappen:** Deze sensor werkt op 5V.
+- **Bronnen:**
+  - [Verkooppagina Otronic](https://www.otronic.nl/nl/bodemvochtsensor-met-voltage-regulator-copy.html)
+
 ## Bodemtemperatuursensor
 ![Bodemtemperatuursensor](./Afbeeldingen/bodemtemp.png)
 - **Beschrijving:** Dit is een Bodemtemparatuursensor en zal in de grond zitten. Waar het de temperatuur zal meten, dit wordt doorgestuurd met een signaal kabel naar de esp.
