@@ -25,9 +25,16 @@ De volgende 6 sensoren worden gebruikt voor het monitoren van de planten:
   - [Voorbeeldcode met Arduino](https://randomnerdtutorials.com/guide-for-ds18b20-temperature-sensor-with-arduino/)
   - [Instructables Tutorial](https://www.instructables.com/How-to-use-DS18B20-Temperature-Sensor-Arduino-Tuto/)
 
+## Co² sensor
+![Co² sensor](./Afbeeldingen/co2.webp)
+
+- **Beschrijving:** Deze sensor meet de kwaliteit van de lucht (Co² en stikstof). Dit zal in een doosje in een doosje zitten met gaten zodat deze nog goed kan meten. Signalen worden verstuurd door TX en RX uitgang. 
+- **Elektrische eigenschappen:** Werkt bij een voeding van 4.5-5.5V DC.
+- **Bronnen:**
+  - [Verkooppagina Otronic](https://www.otronic.nl/nl/co2-sensor-mh-z19b-met-kabeltje.html)
+
 ## Bodemtemperatuursensor
 ![Bodemtemperatuursensor](./Afbeeldingen/bodemtemp.png)
-
 - **Beschrijving:** Dit is een Bodemtemparatuursensor en zal in de grond zitten. Waar het de temperatuur zal meten, dit wordt doorgestuurd met een signaal kabel naar de esp.
 - **Elektrische eigenschappen:** Werkbaar bij een spanning tussen 3.0V en 5.5V.
 - **Overige:** Werkt tussen de -55 en 125 graden.
