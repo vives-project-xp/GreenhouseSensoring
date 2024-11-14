@@ -7,6 +7,7 @@
   - [Doel](#doel)
   - [Team](#team)
   - [Sensoren](#sensoren)
+    - [Meer informatie nodig?](#meer-informatie-nodig)
   - [Bill of Materials (BOM)](#bill-of-materials-bom)
 
 ## Doel
@@ -27,6 +28,9 @@ Dit zijn de sensoren die we gaan gebruiken:
 - **Bodemtemperatuursensor**: Meet de temperatuur van de grond.
 - **CO2-sensor**: Meet het CO2-gehalte in de lucht binnen de serre.
 - **NPK Sensor**: Meet de concentraties van stikstof (N), fosfor (P), en kalium (K) in de bodem.
+
+### Meer informatie nodig?
+  - [Klik hier](./Documentatie/Algemene%20info/README.md)
 
 
 ## Bill of Materials (BOM)
