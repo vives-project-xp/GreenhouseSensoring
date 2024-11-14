@@ -30,7 +30,7 @@ Dit zijn de sensoren die we gaan gebruiken:
 - **NPK Sensor**: Meet de concentraties van stikstof (N), fosfor (P), en kalium (K) in de bodem.
 
 ### Meer informatie nodig?
-  - [Klik hier](./Documentatie/Algemene%20info/README.md)
+  - [Readme algemene informatie](./Documentatie/Algemene%20info/README.md)
 
 
 ## Bill of Materials (BOM)
