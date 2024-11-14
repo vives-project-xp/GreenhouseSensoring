@@ -1,31 +1,35 @@
-<h1>Architectuur:</h1>
-Er wordt gebruik gemaakt van de ESP32 Devkit V1 board als microcontroller voor de aansturing. De ESP zal in een 3D-geprinte box geplaatst worden en aan een speciale adapter bevestigd worden om kabels makkelijker te kunnen bevestigen: 
-<br></br>
-<img src="./Afbeeldingen/ESP-adapter.webp"></img>
-<br></br>
-<h1>ESP32</h1>
-Minimum geleverde power supply is 500 mA.
-<h1>Sensoren</h1>
+# Architectuur:
+De **ESP32 Devkit V1** board wordt gebruikt als microcontroller voor de aansturing. De ESP zal in een 3D-geprinte behuizing geplaatst worden en verbonden worden aan een speciale adapter om kabels eenvoudiger te kunnen bevestigen.
+
+![ESP Adapter](./Afbeeldingen/ESP-adapter.webp)
+
+# ESP32
+De minimale stroomvoorziening voor de ESP32 is 500 mA.
+
+# Sensoren
 De volgende 6 sensoren worden gebruikt voor het monitoren van de planten:
 
-<h2>Temperatuur- en vochtsensor omgeving</h2>
-<img src="./Afbeeldingen/Temp-vochtsensor-omgeving.webp"></img>
-<br></br>
-<ul>
-    <li><b>Beschrijving:</b> Deze sensor (Temperatuur/Vochtigheid Sensor Module Breakout - HTU21D (OT3567)) meet zowel de omgevingstemperatuur als vocht in de omgeving van de serre. Hiervoor zal een klein boxje geprint worden om deze veilig op te bergen. </li>
-    <li><b>Elektrische eigenschappen:</b> gevoed op 3.3V, rechtstreeks via ESP. Stoom ligt tussen 300 en 500 µA in actieve toestand (tussen 0.02 en 0.14 µA in sleeping mode).</li>
-    <li><b>Overig:</b> Er zijn ook een SCL/SDA pin die rechtstreeks op pin D21 en D22 op de ESP aangesloten kunnen worden. Echter is er ook nog een andere sensor (lichtsensor) die ook SCL/SDA. Dit zou geen probleem moeten vormen omdat beide sensoren een ander I2C-adres hebben. Deze sensor werkt op het 0x40 adres. </li>
-</ul>
+## Temperatuur- en vochtsensor omgeving
+![Temperatuur- en vochtsensor omgeving](./Afbeeldingen/Temp-vochtsensor-omgeving.webp)
 
-<h2>Lichtintensiteitsensor</h2>
-<img src="./Afbeeldingen/lichtsensor.png"></img>
-<ul>
-<li><b>Beschrijving:</b> Deze sensor meet de lichtsterkte in de serre, en zal op een afstandje van de ESP bevestigd worden in een 3D geprint boxje. 
-Deze sensor werkt op I2C, werkt op het 0x5C adres (indien ADDR hoog is) of het 0X23 adres (indien ADDR laag is) (bron: datasheet p. 10).</li>
-<li><b>Elektrische eigenschappen:</b>Geleverde spanning ligt tussen 3V en 5V.</li>
-<li><b>Overig:</b></li>
-<li><b>Bronnen:</b></li>
-<ul>
-<li>Voorbeeldcode met Arduino: https://randomnerdtutorials.com/guide-for-ds18b20-temperature-sensor-with-arduino/</li>
-<li>https://www.instructables.com/How-to-use-DS18B20-Temperature-Sensor-Arduino-Tuto/</li>
-</ul>
+- **Beschrijving:** Deze sensor (Temperatuur/Vochtigheid Sensor Module Breakout - HTU21D (OT3567)) meet zowel de temperatuur als de luchtvochtigheid in de omgeving van de serre. Hiervoor zal een klein doosje geprint worden om deze veilig op te bergen.
+- **Elektrische eigenschappen:** Gevoed op 3.3V, direct via de ESP. Stroomverbruik ligt tussen 300 en 500 µA in actieve toestand (tussen 0.02 en 0.14 µA in slaapstand).
+- **Overig:** Heeft SCL/SDA-pinnen die rechtstreeks op pin D21 en D22 van de ESP aangesloten kunnen worden. Een andere sensor (lichtsensor) gebruikt ook SCL/SDA, maar beide sensoren hebben een ander I2C-adres, wat geen probleem oplevert. Deze sensor werkt op adres **0x40**.
+
+## Lichtintensiteitsensor
+![Lichtintensiteitssensor](./Afbeeldingen/lichtsensor.png)
+
+- **Beschrijving:** Deze sensor meet de lichtsterkte in de serre en zal op enige afstand van de ESP bevestigd worden in een 3D-geprint doosje. Deze sensor werkt via I2C en heeft twee mogelijke adressen: **0x5C** (als ADDR hoog is) of **0x23** (als ADDR laag is).
+- **Elektrische eigenschappen:** Werkt bij een spanning tussen 3V en 5V.
+- **Bronnen:**
+  - [Voorbeeldcode met Arduino](https://randomnerdtutorials.com/guide-for-ds18b20-temperature-sensor-with-arduino/)
+  - [Instructables Tutorial](https://www.instructables.com/How-to-use-DS18B20-Temperature-Sensor-Arduino-Tuto/)
+
+## Bodemtemperatuursensor
+![Bodemtemperatuursensor](./Afbeeldingen/bodemtemp.png)
+
+- **Beschrijving:** Dit is een Bodemtemparatuursensor en zal in de grond zitten. Waar het de temperatuur zal meten, dit wordt doorgestuurd met een signaal kabel naar de esp.
+- **Elektrische eigenschappen:** Werkbaar bij een spanning tussen 3.0V en 5.5V.
+- **Overige:** Werkt tussen de -55 en 125 graden.
+- **Bronnen:**
+  - [Verkooppagina Kiwi Electronics](https://www.kiwi-electronics.com/nl/hoge-temp--waterbestendige-ds18b20-digitale-temperatuursensor-plus-weerstand-1431?country=BE&srsltid=AfmBOoqwPQA5-UhEoJuMfzhCg9EEue8CdF8_Cq9gSyED76mqtEb_zfaPs80)
