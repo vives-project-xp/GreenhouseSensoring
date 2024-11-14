@@ -60,3 +60,6 @@ De volgende 6 sensoren worden gebruikt voor het monitoren van de planten:
 - **Bronnen:** 
   - [Verkooppagina Mouser](https://www.mouser.be/ProductDetail/DFRobot/SEN0605?qs=sGAEpiMZZMu3sxpa5v1qrmro%252BbykgF%2FHBGnWfOZZDls%3D)
   - [Aansluitschema's](https://how2electronics.com/iot-based-soil-nutrient-monitoring-with-arduino-esp32/#:~:text=So,%20this%20is%20how%20you%20can%20make%20a)
+
+# Schema van de aansluitingen
+![aansluitschema](./Afbeeldingen/aansluitschema.png)
