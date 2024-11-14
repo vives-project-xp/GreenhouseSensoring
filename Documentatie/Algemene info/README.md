@@ -47,3 +47,12 @@ De volgende 6 sensoren worden gebruikt voor het monitoren van de planten:
 - **Overige:** Werkt tussen de -55 en 125 graden.
 - **Bronnen:**
   - [Verkooppagina Kiwi Electronics](https://www.kiwi-electronics.com/nl/hoge-temp--waterbestendige-ds18b20-digitale-temperatuursensor-plus-weerstand-1431?country=BE&srsltid=AfmBOoqwPQA5-UhEoJuMfzhCg9EEue8CdF8_Cq9gSyED76mqtEb_zfaPs80)
+
+## Voedingstofsensor
+![Voedingstofsensor](./Afbeeldingen/voedingstofsensor.webp)
+- **Beschrijving:** De voedingstofsensor ookwel NPK sensor genoemd meet drie dingen uit. De stikstof, de fosfor en de kalium. Dit kan niet rechtstreeks uitgemeten worden op de esp, hiertussen moet je een TTL -> RS485 plaatsen. Om een goed signaal te kunnen krijgen op de esp.
+- **Elektrische eigenschappen:** Deze sensor werkt tussen de  5V en 30V.
+- **Overige:** Maximum temperatuur is 80°C.
+- **Bronnen:** 
+  - [Verkooppagina Mouser](https://www.mouser.be/ProductDetail/DFRobot/SEN0605?qs=sGAEpiMZZMu3sxpa5v1qrmro%252BbykgF%2FHBGnWfOZZDls%3D)
+  - [Aansluitschema's](https://how2electronics.com/iot-based-soil-nutrient-monitoring-with-arduino-esp32/#:~:text=So,%20this%20is%20how%20you%20can%20make%20a)
