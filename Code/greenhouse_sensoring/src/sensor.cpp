@@ -1,24 +1,24 @@
 #include "sensor.h"
 
-HaSensor::HaSensor(): type("undefines"), unit("undefined"), value(0){};
-HaSensor::HaSensor(String type, String unit) : type(type), unit(unit) {
-    Serial.println("Sensor initialized");
-    Serial.println("-----------------------");
-    Serial.print("Type: ");
-    Serial.print(type);
-    Serial.print("\nUnit: ");
-    Serial.print(unit);
-    Serial.print("\n");
-    Serial.println("-----------------------");
+HaSensor::HaSensor(): name("undefined"), type("undefined"), unit("undefined"), value(0){};
+HaSensor::HaSensor(String name, String type, String unit) : name(name), type(type), unit(unit), value(0) {
+    // Serial.println("Sensor initialized");
+    // Serial.println("-----------------------");
+    // Serial.print("Type: ");
+    // Serial.print(type);
+    // Serial.print("\nUnit: ");
+    // Serial.print(unit);
+    // Serial.print("\n");
+    // Serial.println("-----------------------");
 }
 
 String HaSensor::toJson() {
     String json = "{";
+    json += "\"name\":\"" + this->name + "\",";
     json += "\"type\":\"" + this->type + "\",";
-    json += "\"unit\":\"" + this->unit + "\",";
-    json += "\"sensor_value\":" + String(this->value);
+    json += "\"value\":" + String(this->value) + ",";
+    json += "\"unit\":\"" + this->unit + "\"";
     json += "}";
-    Serial.println(json);
     return json;
 }
 
@@ -36,4 +36,8 @@ String HaSensor::getType() {
 
 String HaSensor::getUnit() {
     return this->unit;
+}
+
+String HaSensor::getName() {
+    return this->name;
 }

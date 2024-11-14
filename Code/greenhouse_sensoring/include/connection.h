@@ -18,6 +18,7 @@ private:
     HaSensor sensor;
     void sendHttpPost(HaSensor sensor);
     String stringIP();
+    
 
 public:
     bool connected;
@@ -29,6 +30,7 @@ public:
     void StartMDNS();
     void setup();
     void sendData(HaSensor sensor);
+    String generateAllSensorsJson(HaSensor sensors[], int sensorCount);
 };
 
 

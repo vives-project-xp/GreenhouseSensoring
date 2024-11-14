@@ -6,6 +6,7 @@
 class HaSensor {
 
 private:
+    String name;
     String type;
     String unit;
     float value;
@@ -13,11 +14,12 @@ private:
 
 public:
     HaSensor();
-    HaSensor(String type, String unit);
+    HaSensor(String name, String type, String unit);
     void setValue(float value);
     float getValue();
     String getType();
     String getUnit();
+    String getName();
     String toJson();
 };
 

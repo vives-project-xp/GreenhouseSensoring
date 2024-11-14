@@ -56,8 +56,8 @@ void HaConnection::sendData(HaSensor sensor){
 void HaConnection::sendHttpPost(HaSensor sensor) {
     if (WiFi.status() == WL_CONNECTED) {  // Controleer of WiFi verbinding actief is
         HTTPClient http;
-        String url = "http://greenhousenetworking.local:8123/api/webhook/greenhouse" + stringIP();
-        Serial.println(url);
+        String url = "http://10.10.2.20:8123/api/webhook/greenhouse" + stringIP();
+        //Serial.println(url);
         http.begin(url);
         http.addHeader("Content-Type", "application/json");  // Zet de juiste headers
 
@@ -87,4 +87,20 @@ String HaConnection::stringIP() {
     ip.replace('.', '_');
 
     return "_" + ip;  // Voeg aan het begin een underscore toe
+}
+
+String HaConnection::generateAllSensorsJson(HaSensor sensors[], int sensorCount) {
+    String json = "{";
+    json += "\"card-name\":\"Sensoring team\",";
+    json += "\"sensors\":[";
+
+    for (int i = 0; i < sensorCount; i++) {
+        json += sensors[i].toJson();
+        if (i < sensorCount - 1) {
+            json += ","; 
+        }
+    }
+
+    json += "]}";
+    return json;
 }
