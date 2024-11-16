@@ -8,6 +8,7 @@
 //#include "connection.h"
 //#include "Wifi_config.h"
 #include "SoftwareSerial.h"
+#include "HardwareSerial.h"
 
 //Initialisatie namen van sensorwaarden voor home assistant
 // HaSensor bodemTempWaarde;
@@ -32,10 +33,29 @@ Adafruit_HTU21DF htu = Adafruit_HTU21DF();
 BH1750 lightMeter;
 
 //CO2sensor
-#define RX_PIN 16                                       
-#define TX_PIN 17
-MHZ19 myMHZ19;  
-SoftwareSerial mySerial(RX_PIN, TX_PIN);
+// #define RX_PIN 16                                       
+// #define TX_PIN 17
+// MHZ19 myMHZ19;  
+// SoftwareSerial mySerial(RX_PIN, TX_PIN);
+
+//npk sensor
+#define RX_PIN 4 // Set RX to GPIO4
+#define TX_PIN 5 // Set TX to GPIO5
+
+#define RE 2
+#define DE 15
+
+// Modbus RTU requests for reading NPK values
+const byte nitro[] = {0x01, 0x03, 0x00, 0x1E, 0x00, 0x01, 0xE4, 0x0C};  // Nitrogen (N)
+const byte phos[] = {0x01, 0x03, 0x00, 0x1F, 0x00, 0x01, 0xB5, 0xCC};   // Phosphorus (P)
+const byte pota[] = {0x01, 0x03, 0x00, 0x20, 0x00, 0x01, 0x85, 0xC0};
+
+byte values[11];
+ 
+// SoftwareSerial object to communicate with the RS485 module
+SoftwareSerial modbus(RX_PIN, TX_PIN);
+
+byte readValue(const byte* request);
 
 void setup()
 {
@@ -43,10 +63,20 @@ void setup()
   Serial.begin(9600);
   Wire.begin();
   lightMeter.begin();
-  mySerial.begin(9600);
-  myMHZ19.begin(mySerial);
+  // mySerial.begin(9600);
+  // myMHZ19.begin(mySerial);
   
-  myMHZ19.autoCalibration(); 
+  modbus.begin(9600);
+ 
+  // Set RS485 pins as outputs
+  pinMode(RE, OUTPUT);
+  pinMode(DE, OUTPUT);
+ 
+  // Turn off RS485 receiver and transmitter initially
+  digitalWrite(RE, LOW);
+  digitalWrite(DE, LOW);
+
+  //npkSerial.begin(9600, SERIAL_8N1, RX_PIN, TX_PIN);
 
   if (!htu.begin()) {
     Serial.println("HTU21DF initialisatie mislukt! Controleer de verbinding.");
@@ -67,21 +97,24 @@ if (!lightMeter.begin()) {
   // omgevingVochtWaarde = HaSensor("Humidity meting","humidity", "%");
   // lichtWaarde = HaSensor("Light meting", "light", "lx");
   //waardes voor andere sensoren hier
+
+  delay(500); //voor npk 
 }
 
-void loop()
-{ 
-  int CO2 = myMHZ19.getCO2();
+void loop() { 
+  Serial.print("Nitrogen: ");
+  Serial.print(readValue(nitro));
+  Serial.println(" mg/kg");
+ 
+  Serial.print("Phosphorous: ");
+  Serial.print(readValue(phos));
+  Serial.println(" mg/kg");
+ 
+  Serial.print("Potassium: ");
+  Serial.print(readValue(pota));
+  Serial.println(" mg/kg");
 
-  // HaSensor sensors[] = { bodemTempWaarde, omgevingTempWaarde, omgevingVochtWaarde, lichtWaarde }; //andere sensoren hier toevoegen voor home assistant connectie
-  // int sensorCount = sizeof(sensors) / sizeof(sensors[0]);
-
-  // // Genereer en verzend het volledige JSON-bericht
-  // String fullJson = connection.generateAllSensorsJson(sensors, sensorCount);
-  //connection.sendData(fullJson);
-  //Serial.println(fullJson);
-
-  // Send the command to get temperatures
+  // De andere sensoren
   bodemTemp.requestTemperatures();  
   Celsius = bodemTemp.getTempCByIndex(0);
   Serial.print("Bodemtemperatuur: ");
@@ -89,7 +122,6 @@ void loop()
   Serial.print(" C    ");
   Serial.println("");
 
-  //omgevingstemp & omgevingsvocht
   float temp = htu.readTemperature();
   float rel_hum = htu.readHumidity();
 
@@ -103,21 +135,32 @@ void loop()
   Serial.println(" %");
   Serial.println("");
 
-  //lichtsensor
   float lux = lightMeter.readLightLevel();
   Serial.print("Light: ");
   Serial.print(lux);
   Serial.println(" lx");
   Serial.println("");
-  Serial.println("");
-  Serial.println("");
-
-  //CO2sensor
-  Serial.print("CO2 Concentration: ");
-  Serial.print(CO2);
-  Serial.println(" ppm");
-
-  //waardes andere sensoren verzenden hier
 
   delay(5000);
+}
+
+// voor npk: sends a Modbus RTU request and reads the response to get a value
+byte readValue(const byte* request) {
+  // RS485 module to transmit mode
+  digitalWrite(RE, HIGH);
+  digitalWrite(DE, HIGH);
+ 
+  modbus.write(request, sizeof(request));
+ 
+  // RS485 module to receive mode
+  digitalWrite(RE, LOW);
+  digitalWrite(DE, LOW);
+ 
+  delay(1000);
+
+  byte responseLength = modbus.available();
+  for (byte i = 0; i < responseLength; i++) {
+    values[i] = modbus.read();
+  }
+
 }
