@@ -8,7 +8,7 @@
 #include "connection.h"
 #include "Wifi_config.h"
 #include "SoftwareSerial.h"
-#include "HardwareSerial.h"
+#include <HardwareSerial.h>
 
 //Initialisatie namen van sensorwaarden voor home assistant
 HaSensor bodemTempWaarde;
@@ -33,10 +33,10 @@ Adafruit_HTU21DF htu = Adafruit_HTU21DF();
 BH1750 lightMeter;
 
 //CO2sensor
-// #define RX_PIN 16                                       
-// #define TX_PIN 17
-// MHZ19 myMHZ19;  
-// SoftwareSerial mySerial(RX_PIN, TX_PIN);
+#define RX_CO2 16                                       
+#define TX_CO2 17
+MHZ19 myMHZ19;  
+SoftwareSerial mySerial(RX_CO2, TX_CO2);
 
 //npk sensor
 #define RX_PIN 4 // Set RX to GPIO4
@@ -62,22 +62,23 @@ byte potassium();
 
 void setup()
 {
+  // Turn off RS485 receiver and transmitter initially
+  digitalWrite(RE, LOW);
+  digitalWrite(DE, LOW);
+  delay(1000);
+
   bodemTemp.begin();
   Serial.begin(9600);
   Wire.begin();
   lightMeter.begin();
-  // mySerial.begin(9600);
-  // myMHZ19.begin(mySerial);
+  mySerial.begin(9600);
+  myMHZ19.begin(mySerial);
   
   mod.begin(9600);
  
   // Set RS485 pins as outputs
   pinMode(RE, OUTPUT);
   pinMode(DE, OUTPUT);
- 
-  // Turn off RS485 receiver and transmitter initially
-  digitalWrite(RE, LOW);
-  digitalWrite(DE, LOW);
 
   //npkSerial.begin(9600, SERIAL_8N1, RX_PIN, TX_PIN);
 
@@ -95,11 +96,13 @@ if (!lightMeter.begin()) {
   if (!connection.connected)
     return;
 
-  bodemTempWaarde = HaSensor("Soil temp meting",SensorType::TEMPERATURE);
-  omgevingTempWaarde = HaSensor("Ambient temp meting", SensorType::TEMPERATURE);
-  omgevingVochtWaarde = HaSensor("Humidity meting",SensorType::TEMPERATURE);
-  lichtWaarde = HaSensor("Light meting", SensorType::TEMPERATURE);
-  //waardes voor andere sensoren hier
+  bodemTempWaarde = HaSensor("Soil_temp",SensorType::TEMPERATURE);
+  omgevingTempWaarde = HaSensor("Ambient_temp", SensorType::TEMPERATURE);
+  omgevingVochtWaarde = HaSensor("ambient_Humidity",SensorType::TEMPERATURE);
+  bodemVochtWaarde = HaSensor("soil_humidity",SensorType::TEMPERATURE);
+  // TODO NPK (3 versch waarden npk1 npk2 bvb) NPKWaarde = HaSensor("npk",SensorType::TEMPERATURE);
+  CO2Waarde = HaSensor("CO2",SensorType::TEMPERATURE);
+  lichtWaarde = HaSensor("Light", SensorType::TEMPERATURE);
 
   delay(500); //voor npk 
 }
@@ -113,6 +116,13 @@ void loop() {
   val3 = potassium();
   delay(250);
 
+  int CO2 = myMHZ19.getCO2();
+
+  //voor bodemvocht:
+  int soilMoistureValue = analogRead(35);  //put Sensor insert into soil
+  Serial.println(soilMoistureValue);
+
+  //npk
   Serial.print("Nitrogen: ");
   Serial.print(val1);
   Serial.println(" mg/kg");
@@ -152,58 +162,76 @@ void loop() {
   Serial.println(" lx");
   Serial.println("");
 
+  //CO2sensor
+  Serial.print("CO2 Concentration: ");
+  Serial.print(CO2);
+  Serial.println(" ppm");
+
+  //voor sturen van lux waardes naar esp van light&heat
+  HTTPClient http; // Maak een HTTP client-object
+  http.begin("http://esp2.local/data"); 
+  http.addHeader("Content-Type", "application/x-www-form-urlencoded"); 
+  int httpResponseCode = http.POST("value=" + String(lux)); 
+  if (httpResponseCode > 0) {
+      Serial.print("HTTP Response code: ");
+      Serial.println(httpResponseCode);
+  } else {
+      Serial.print("Fout bij HTTP POST: ");
+      Serial.println(http.errorToString(httpResponseCode).c_str());
+  }
+  http.end();
 
 
-  std::vector<HaSensor> sensors = {bodemTempWaarde, omgevingTempWaarde, bodemVochtWaarde, lichtWaarde};
+  bodemTempWaarde.setValue(Celsius);
+  omgevingTempWaarde.setValue(temp);
+  omgevingVochtWaarde.setValue(rel_hum);
+  lichtWaarde.setValue(lux);
+  bodemVochtWaarde.setValue(soilMoistureValue);
+  CO2Waarde.setValue(CO2);
+  std::vector<HaSensor> sensors = {bodemTempWaarde, omgevingTempWaarde, omgevingVochtWaarde, lichtWaarde, bodemVochtWaarde, CO2Waarde};
   connection.sendData("Sensoring", sensors);
   delay(5000);
 
 }
 
 // voor npk
-byte nitrogen(){
-  digitalWrite(DE,HIGH);
-  digitalWrite(RE,HIGH);
-  delay(10);
-  while(mod.available()) mod.read();
-  mod.write(nitro, sizeof(nitro));
-  digitalWrite(DE,LOW);
-  digitalWrite(RE,LOW);
-  delay(10);
-  if (mod.available() >= 7) {
-  for(byte i=0;i<7;i++){
-    values[i] = mod.read();
-  }
-  return values[4];
-} 
+byte readSensor(const byte* request, byte* response, int responseLength) {
+    digitalWrite(DE, HIGH);
+    digitalWrite(RE, HIGH);
+    delay(10); // Tijd om te schakelen naar zenden
+    mod.write(request, 8); // Stuur Modbus request
+    mod.flush(); // Wacht tot het verzenden klaar is
+    digitalWrite(DE, LOW);
+    digitalWrite(RE, LOW);
+    delay(20); // Wacht tot de sensor reageert
+
+    int bytesRead = 0;
+    while (mod.available()) {
+        response[bytesRead++] = mod.read();
+        if (bytesRead >= responseLength) break;
+    }
+
+    if (bytesRead < responseLength) {
+        Serial.println("Onvolledige respons ontvangen!");
+        return 0xFF; // Geef een foutwaarde terug
+    }
+
+    // Controleer CRC hier indien nodig (niet geïmplementeerd in dit voorbeeld)
+    return response[4]; // Return de waarde (bv. N, P of K)
 }
 
-byte phosphorous(){
-  digitalWrite(DE,HIGH);
-  digitalWrite(RE,HIGH);
-  delay(10);
-  if(mod.write(phos,sizeof(phos))==8){
-    digitalWrite(DE,LOW);
-    digitalWrite(RE,LOW);
-    delay(10);
-    for(byte i=0;i<7;i++){
-      values[i] = mod.read();
-    }
-  }
-  return values[4];
+byte nitrogen() {
+    byte response[7];
+    return readSensor(nitro, response, 7);
 }
 
-byte potassium(){
-  digitalWrite(DE,HIGH);
-  digitalWrite(RE,HIGH);
-  delay(10);
-  if(mod.write(pota,sizeof(pota))==8){
-    digitalWrite(DE,LOW);
-    digitalWrite(RE,LOW);
-    delay(10);
-    for(byte i=0;i<7;i++){
-      values[i] = mod.read();
-    }
-  }
-  return values[4];
+byte phosphorous() {
+    byte response[7];
+    return readSensor(phos, response, 7);
 }
+
+byte potassium() {
+    byte response[7];
+    return readSensor(pota, response, 7);
+}
+
