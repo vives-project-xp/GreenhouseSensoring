@@ -4,21 +4,21 @@
 #include "Adafruit_HTU21DF.h"
 #include <BH1750.h>
 #include "MHZ19.h"
-//#include "sensor.h"
-//#include "connection.h"
-//#include "Wifi_config.h"
+#include "sensor.h"
+#include "connection.h"
+#include "Wifi_config.h"
 #include "SoftwareSerial.h"
 #include "HardwareSerial.h"
 
 //Initialisatie namen van sensorwaarden voor home assistant
-// HaSensor bodemTempWaarde;
-// HaSensor omgevingTempWaarde;
-// HaSensor omgevingVochtWaarde;
-// HaSensor lichtWaarde;
-// HaSensor CO2Waarde;
-// HaSensor bodemVochtWaarde;
-// HaSensor NPKWaarde;
-// HaConnection connection;
+HaSensor bodemTempWaarde;
+HaSensor omgevingTempWaarde;
+HaSensor omgevingVochtWaarde;
+HaSensor lichtWaarde;
+HaSensor CO2Waarde;
+HaSensor bodemVochtWaarde;
+HaSensor NPKWaarde;
+HaConnection connection;
 
 // Datapin bodemtemperatuursensor
 #define GPIO_BODEMTEMP 14
@@ -46,16 +46,19 @@ BH1750 lightMeter;
 #define DE 15
 
 // Modbus RTU requests for reading NPK values
-const byte nitro[] = {0x01, 0x03, 0x00, 0x1E, 0x00, 0x01, 0xE4, 0x0C};  // Nitrogen (N)
-const byte phos[] = {0x01, 0x03, 0x00, 0x1F, 0x00, 0x01, 0xB5, 0xCC};   // Phosphorus (P)
-const byte pota[] = {0x01, 0x03, 0x00, 0x20, 0x00, 0x01, 0x85, 0xC0};
+const byte nitro[] = {0x01, 0x03, 0x00, 0x1e, 0x00, 0x01, 0xe4, 0x0c};  // Nitrogen (N)
+const byte phos[] = {0x01, 0x03, 0x00, 0x1f, 0x00, 0x01, 0xb5, 0xcc};   // Phosphorus (P)
+const byte pota[] = {0x01, 0x03, 0x00, 0x20, 0x00, 0x01, 0x85, 0xc0};
 
 byte values[11];
  
 // SoftwareSerial object to communicate with the RS485 module
-SoftwareSerial modbus(RX_PIN, TX_PIN);
+SoftwareSerial mod(RX_PIN, TX_PIN);
 
-byte readValue(const byte* request);
+//byte readValue(const byte* request);
+byte nitrogen();
+byte phosphorous();
+byte potassium();
 
 void setup()
 {
@@ -66,7 +69,7 @@ void setup()
   // mySerial.begin(9600);
   // myMHZ19.begin(mySerial);
   
-  modbus.begin(9600);
+  mod.begin(9600);
  
   // Set RS485 pins as outputs
   pinMode(RE, OUTPUT);
@@ -87,31 +90,39 @@ if (!lightMeter.begin()) {
 }
 
 
-  // connection =  HaConnection(WIFI_SSID, WIFI_PASSWORD, 80, true);
-  // connection.setup();
-  // if (!connection.connected)
-  //   return;
+  connection =  HaConnection(WIFI_SSID, WIFI_PASSWORD, 80, true);
+  connection.setup();
+  if (!connection.connected)
+    return;
 
-  // bodemTempWaarde = HaSensor("Soil temp meting", "soil_temperature", "°C");
-  // omgevingTempWaarde = HaSensor("Ambient temp meting", "ambient_temperature", "°C");
-  // omgevingVochtWaarde = HaSensor("Humidity meting","humidity", "%");
-  // lichtWaarde = HaSensor("Light meting", "light", "lx");
+  bodemTempWaarde = HaSensor("Soil temp meting",SensorType::TEMPERATURE);
+  omgevingTempWaarde = HaSensor("Ambient temp meting", SensorType::TEMPERATURE);
+  omgevingVochtWaarde = HaSensor("Humidity meting",SensorType::TEMPERATURE);
+  lichtWaarde = HaSensor("Light meting", SensorType::TEMPERATURE);
   //waardes voor andere sensoren hier
 
   delay(500); //voor npk 
 }
 
 void loop() { 
+  byte val1,val2,val3;
+  val1 = nitrogen();
+  delay(250);
+  val2 = phosphorous();
+  delay(250);
+  val3 = potassium();
+  delay(250);
+
   Serial.print("Nitrogen: ");
-  Serial.print(readValue(nitro));
+  Serial.print(val1);
   Serial.println(" mg/kg");
  
   Serial.print("Phosphorous: ");
-  Serial.print(readValue(phos));
+  Serial.print(val2);
   Serial.println(" mg/kg");
  
   Serial.print("Potassium: ");
-  Serial.print(readValue(pota));
+  Serial.print(val3);
   Serial.println(" mg/kg");
 
   // De andere sensoren
@@ -141,26 +152,58 @@ void loop() {
   Serial.println(" lx");
   Serial.println("");
 
+
+
+  std::vector<HaSensor> sensors = {bodemTempWaarde, omgevingTempWaarde, bodemVochtWaarde, lichtWaarde};
+  connection.sendData("Sensoring", sensors);
   delay(5000);
+
 }
 
-// voor npk: sends a Modbus RTU request and reads the response to get a value
-byte readValue(const byte* request) {
-  // RS485 module to transmit mode
-  digitalWrite(RE, HIGH);
-  digitalWrite(DE, HIGH);
- 
-  modbus.write(request, sizeof(request));
- 
-  // RS485 module to receive mode
-  digitalWrite(RE, LOW);
-  digitalWrite(DE, LOW);
- 
-  delay(1000);
-
-  byte responseLength = modbus.available();
-  for (byte i = 0; i < responseLength; i++) {
-    values[i] = modbus.read();
+// voor npk
+byte nitrogen(){
+  digitalWrite(DE,HIGH);
+  digitalWrite(RE,HIGH);
+  delay(10);
+  while(mod.available()) mod.read();
+  mod.write(nitro, sizeof(nitro));
+  digitalWrite(DE,LOW);
+  digitalWrite(RE,LOW);
+  delay(10);
+  if (mod.available() >= 7) {
+  for(byte i=0;i<7;i++){
+    values[i] = mod.read();
   }
+  return values[4];
+} 
+}
 
+byte phosphorous(){
+  digitalWrite(DE,HIGH);
+  digitalWrite(RE,HIGH);
+  delay(10);
+  if(mod.write(phos,sizeof(phos))==8){
+    digitalWrite(DE,LOW);
+    digitalWrite(RE,LOW);
+    delay(10);
+    for(byte i=0;i<7;i++){
+      values[i] = mod.read();
+    }
+  }
+  return values[4];
+}
+
+byte potassium(){
+  digitalWrite(DE,HIGH);
+  digitalWrite(RE,HIGH);
+  delay(10);
+  if(mod.write(pota,sizeof(pota))==8){
+    digitalWrite(DE,LOW);
+    digitalWrite(RE,LOW);
+    delay(10);
+    for(byte i=0;i<7;i++){
+      values[i] = mod.read();
+    }
+  }
+  return values[4];
 }

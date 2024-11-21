@@ -1,24 +1,36 @@
 #include "sensor.h"
 
-HaSensor::HaSensor(): name("undefined"), type("undefined"), unit("undefined"), value(0){};
-HaSensor::HaSensor(String name, String type, String unit) : name(name), type(type), unit(unit), value(0) {
-    // Serial.println("Sensor initialized");
-    // Serial.println("-----------------------");
-    // Serial.print("Type: ");
-    // Serial.print(type);
-    // Serial.print("\nUnit: ");
-    // Serial.print(unit);
-    // Serial.print("\n");
-    // Serial.println("-----------------------");
+HaSensor::HaSensor(): name(), type(), value(0){};
+HaSensor::HaSensor(String name, SensorType type) : name(), type(type) {
+    this->name = name;
+    switch (type) {
+        case SensorType::TEMPERATURE:
+            this->unit = "°C";
+            break;
+        case SensorType::HUMIDITY:
+            this->unit = "%";
+            break;
+    }
+    Serial.println("Sensor initialized");
+    Serial.println("-----------------------");
+    Serial.print("Name: ");
+    Serial.println(name);
+    Serial.print("Type: ");
+    Serial.print(typeToString(type));
+    Serial.print("\nUnit: ");
+    Serial.print(unit);
+    Serial.print("\n");
+    Serial.println("-----------------------");
 }
 
 String HaSensor::toJson() {
     String json = "{";
     json += "\"name\":\"" + this->name + "\",";
-    json += "\"type\":\"" + this->type + "\",";
-    json += "\"value\":" + String(this->value) + ",";
-    json += "\"unit\":\"" + this->unit + "\"";
+    json += "\"type\":\"" + typeToString(this->type) + "\",";
+    json += "\"unit\":\"" + this->unit + "\",";
+    json += "\"sensor_value\":" + String(this->value);
     json += "}";
+    Serial.println(json);
     return json;
 }
 
@@ -30,7 +42,7 @@ float HaSensor::getValue() {
     return this->value;
 }
 
-String HaSensor::getType() {
+SensorType HaSensor::getType() {
     return this->type;
 }
 
@@ -38,6 +50,12 @@ String HaSensor::getUnit() {
     return this->unit;
 }
 
-String HaSensor::getName() {
-    return this->name;
+String HaSensor::typeToString(SensorType type) {
+    switch (type) {
+        case SensorType::TEMPERATURE:
+            return "Temperature";
+        case SensorType::HUMIDITY:
+            return "Humidity";
+    }
+    return "Unknown";
 }
