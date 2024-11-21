@@ -16,9 +16,8 @@ private:
     int port;
     bool output;
     HaSensor sensor;
-    void sendHttpPost(HaSensor sensor);
+    void sendHttpPost(String json);
     String stringIP();
-    
 
 public:
     bool connected;
@@ -29,8 +28,7 @@ public:
     void AttemptWifiConnection();
     void StartMDNS();
     void setup();
-    void sendData(HaSensor sensor);
-    String generateAllSensorsJson(HaSensor sensors[], int sensorCount);
+    void sendData(String card_name, const std::vector<HaSensor>& sensors);
 };
 
 

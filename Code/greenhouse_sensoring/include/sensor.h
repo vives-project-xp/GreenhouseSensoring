@@ -3,24 +3,30 @@
 #define HA_SENSOR_H
 
 
+enum class SensorType {
+    TEMPERATURE,
+    HUMIDITY,
+};
+
 class HaSensor {
 
 private:
     String name;
-    String type;
+    SensorType type;
     String unit;
     float value;
 
 
 public:
     HaSensor();
-    HaSensor(String name, String type, String unit);
+    HaSensor(String name, SensorType type);
     void setValue(float value);
     float getValue();
-    String getType();
-    String getUnit();
     String getName();
+    SensorType getType();
+    String getUnit();
     String toJson();
+    String typeToString(SensorType type);
 };
 
 
