@@ -13,7 +13,7 @@
   - [Conclusie](#conclusie)
 
 ## Inleiding
-In deze handleiding bespreken we de hoe dat je nieuwe sensoren kan toevoegen aan dit project.
+In deze handleiding wordt besproken hoe je nieuwe sensoren kan toevoegen aan dit project.
 
 ### Stap 1
 Denk na over wat je wilt meten en welke sensor je hiervoor kan gebruiken. Deze sensor kan alleen op 5V of 3.3V werken. Maak hiervan een schema hoe je hem correct aansluit.

@@ -17,7 +17,9 @@ HaSensor omgevingVochtWaarde;
 HaSensor lichtWaarde;
 HaSensor CO2Waarde;
 HaSensor bodemVochtWaarde;
-HaSensor NPKWaarde;
+HaSensor NPKWaardeNitro;
+HaSensor NPKWaardePhos;
+HaSensor NPKWaardePota;
 HaConnection connection;
 
 // Datapin bodemtemperatuursensor
@@ -60,6 +62,10 @@ byte nitrogen();
 byte phosphorous();
 byte potassium();
 
+//bodemvocht
+int v_droog = 2900;
+int v_nat = 1000;
+
 void setup()
 {
   // Turn off RS485 receiver and transmitter initially
@@ -91,16 +97,18 @@ if (!lightMeter.begin()) {
 }
 
 
-  connection =  HaConnection(WIFI_SSID, WIFI_PASSWORD, 80, true);
-  connection.setup();
-  if (!connection.connected)
-    return;
+//   connection =  HaConnection(WIFI_SSID, WIFI_PASSWORD, 80, true);
+//   connection.setup();
+//   if (!connection.connected)
+//     return;
 
   bodemTempWaarde = HaSensor("Soil_temp",SensorType::TEMPERATURE);
   omgevingTempWaarde = HaSensor("Ambient_temp", SensorType::TEMPERATURE);
   omgevingVochtWaarde = HaSensor("ambient_Humidity",SensorType::TEMPERATURE);
   bodemVochtWaarde = HaSensor("soil_humidity",SensorType::TEMPERATURE);
-  // TODO NPK (3 versch waarden npk1 npk2 bvb) NPKWaarde = HaSensor("npk",SensorType::TEMPERATURE);
+  NPKWaardeNitro = HaSensor("npkNitro", SensorType::TEMPERATURE);
+  NPKWaardePhos = HaSensor("npkPhos", SensorType::TEMPERATURE);
+  NPKWaardePota = HaSensor("npkPota", SensorType::TEMPERATURE);
   CO2Waarde = HaSensor("CO2",SensorType::TEMPERATURE);
   lichtWaarde = HaSensor("Light", SensorType::TEMPERATURE);
 
@@ -120,7 +128,17 @@ void loop() {
 
   //voor bodemvocht:
   int soilMoistureValue = analogRead(35);  //put Sensor insert into soil
-  Serial.println(soilMoistureValue);
+  float vochtigheid = (float(soilMoistureValue) - v_droog) / (v_nat - v_droog) * 100;
+
+  // Zorg dat waarde binnen 0-100% blijft
+  if (vochtigheid < 0) vochtigheid = 0;
+  if (vochtigheid > 100) vochtigheid = 100;
+
+  // Toon vochtigheid
+  Serial.print("Bodemvochtigheid: ");
+  Serial.print(vochtigheid);
+  Serial.println("%");
+  Serial.println("");
 
   //npk
   Serial.print("Nitrogen: ");
@@ -134,6 +152,7 @@ void loop() {
   Serial.print("Potassium: ");
   Serial.print(val3);
   Serial.println(" mg/kg");
+  Serial.println("");
 
   // De andere sensoren
   bodemTemp.requestTemperatures();  
@@ -186,9 +205,12 @@ void loop() {
   omgevingTempWaarde.setValue(temp);
   omgevingVochtWaarde.setValue(rel_hum);
   lichtWaarde.setValue(lux);
+  NPKWaardeNitro.setValue(val1);
+  NPKWaardePhos.setValue(val2);
+  NPKWaardePota.setValue(val3);
   bodemVochtWaarde.setValue(soilMoistureValue);
   CO2Waarde.setValue(CO2);
-  std::vector<HaSensor> sensors = {bodemTempWaarde, omgevingTempWaarde, omgevingVochtWaarde, lichtWaarde, bodemVochtWaarde, CO2Waarde};
+  std::vector<HaSensor> sensors = {bodemTempWaarde, omgevingTempWaarde, omgevingVochtWaarde, lichtWaarde, NPKWaardeNitro, NPKWaardePhos, NPKWaardePota, bodemVochtWaarde, CO2Waarde};
   connection.sendData("Sensoring", sensors);
   delay(5000);
 

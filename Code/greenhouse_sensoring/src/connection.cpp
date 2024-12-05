@@ -1,6 +1,8 @@
 #include "connection.h"
 #include <vector>
 #include <ArduinoJson.h>
+#include <esp_wifi.h>
+
 
 HaConnection::HaConnection(): HaConnection("undefined", "undefined", 80, false) {};
 HaConnection::HaConnection(String ssid, String password): HaConnection(ssid, password, 80, false) {};
@@ -29,6 +31,9 @@ void HaConnection::StartMDNS()
 
 void HaConnection::AttemptWifiConnection()
 {
+    WiFi.setSleep(true); // Schakel Wi-Fi-slaapmodus in
+    esp_wifi_set_ps(WIFI_PS_MIN_MODEM); // Gebruik minimaal stroomverbruik
+
     WiFi.begin(ssid.c_str(), password.c_str());
     if (output)
         Serial.print("Verbinden met WiFi... ");
