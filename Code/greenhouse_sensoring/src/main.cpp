@@ -97,20 +97,20 @@ if (!lightMeter.begin()) {
 }
 
 
-//   connection =  HaConnection(WIFI_SSID, WIFI_PASSWORD, 80, true);
-//   connection.setup();
-//   if (!connection.connected)
-//     return;
+  connection =  HaConnection(WIFI_SSID, WIFI_PASSWORD, "10.10.2.20", 8123);
+  connection.setup();
+  if (!connection.connected)
+    return;
 
-  bodemTempWaarde = HaSensor("Soil_temp",SensorType::TEMPERATURE);
-  omgevingTempWaarde = HaSensor("Ambient_temp", SensorType::TEMPERATURE);
-  omgevingVochtWaarde = HaSensor("ambient_Humidity",SensorType::TEMPERATURE);
-  bodemVochtWaarde = HaSensor("soil_humidity",SensorType::TEMPERATURE);
-  NPKWaardeNitro = HaSensor("npkNitro", SensorType::TEMPERATURE);
-  NPKWaardePhos = HaSensor("npkPhos", SensorType::TEMPERATURE);
-  NPKWaardePota = HaSensor("npkPota", SensorType::TEMPERATURE);
-  CO2Waarde = HaSensor("CO2",SensorType::TEMPERATURE);
-  lichtWaarde = HaSensor("Light", SensorType::TEMPERATURE);
+  bodemTempWaarde = HaSensor("Soil_temp",SensorType::TEMPERATURE,-20,120);
+  //omgevingTempWaarde = HaSensor("Ambient_temp", SensorType::TEMPERATURE);
+  //omgevingVochtWaarde = HaSensor("ambient_Humidity",SensorType::TEMPERATURE);
+  bodemVochtWaarde = HaSensor("soil_humidity",SensorType::HUMIDITY,0,100);
+  NPKWaardeNitro = HaSensor("npkNitro", SensorType::NITROGEN,0,2999);
+  NPKWaardePhos = HaSensor("npkPhos", SensorType::PHOSPHORUS,0,2999);
+  NPKWaardePota = HaSensor("npkPota", SensorType::POTASSIUM,0,2999);
+  CO2Waarde = HaSensor("CO2",SensorType::CO2,0,10000);
+  lichtWaarde = HaSensor("Light", SensorType::LIGHT,0,65535);
 
   delay(500); //voor npk 
 }
@@ -187,30 +187,30 @@ void loop() {
   Serial.println(" ppm");
 
   //voor sturen van lux waardes naar esp van light&heat
-  HTTPClient http; // Maak een HTTP client-object
-  http.begin("http://esp2.local/data"); 
-  http.addHeader("Content-Type", "application/x-www-form-urlencoded"); 
-  int httpResponseCode = http.POST("value=" + String(lux)); 
-  if (httpResponseCode > 0) {
-      Serial.print("HTTP Response code: ");
-      Serial.println(httpResponseCode);
-  } else {
-      Serial.print("Fout bij HTTP POST: ");
-      Serial.println(http.errorToString(httpResponseCode).c_str());
-  }
-  http.end();
+//   HTTPClient http; // Maak een HTTP client-object
+//   http.begin("http://esp2.local/data"); 
+//   http.addHeader("Content-Type", "application/x-www-form-urlencoded"); 
+//   int httpResponseCode = http.POST("value=" + String(lux)); 
+//   if (httpResponseCode > 0) {
+//       Serial.print("HTTP Response code: ");
+//       Serial.println(httpResponseCode);
+//   } else {
+//       Serial.print("Fout bij HTTP POST: ");
+//       Serial.println(http.errorToString(httpResponseCode).c_str());
+//   }
+//   http.end();
 
 
   bodemTempWaarde.setValue(Celsius);
-  omgevingTempWaarde.setValue(temp);
-  omgevingVochtWaarde.setValue(rel_hum);
+  //omgevingTempWaarde.setValue(temp);
+  //omgevingVochtWaarde.setValue(rel_hum);
   lichtWaarde.setValue(lux);
   NPKWaardeNitro.setValue(val1);
   NPKWaardePhos.setValue(val2);
   NPKWaardePota.setValue(val3);
-  bodemVochtWaarde.setValue(soilMoistureValue);
+  bodemVochtWaarde.setValue(vochtigheid);
   CO2Waarde.setValue(CO2);
-  std::vector<HaSensor> sensors = {bodemTempWaarde, omgevingTempWaarde, omgevingVochtWaarde, lichtWaarde, NPKWaardeNitro, NPKWaardePhos, NPKWaardePota, bodemVochtWaarde, CO2Waarde};
+  std::vector<HaSensor> sensors = {bodemTempWaarde, lichtWaarde, NPKWaardeNitro, NPKWaardePhos, NPKWaardePota, bodemVochtWaarde, CO2Waarde};
   connection.sendData("Sensoring", sensors);
   delay(5000);
 
