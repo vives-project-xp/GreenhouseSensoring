@@ -11,7 +11,12 @@
   - [Bill of Materials (BOM)](#bill-of-materials-bom)
 
 ## Doel
-Het meten van verschillende eigenschappen in de serre en deze uitlezen met Home Assistant.
+Dit project heeft als einddoel het meten van verschillende eigenschappen in de serre en deze uitlezen met Home Assistant. Aan de hand van 6 sensoren, die in totaal 9 verschillende parameters doorsturen, worden metingen opgenomen via een ESP32 microcontroller. Deze ESP32 stuurt dan via het lokale netwerk de gemeten waardes door naar de lokale Home Assistant server, waar ze op een visuele manier mooi voorgesteld kunnen worden. Op die manier kan informatie opgedaan worden om de planten zo goed mogelijk te verzorgen. Want meten is weten!
+
+## Gebruik
+Het gebruiken van het product is vrij simpel. Wanneer deze in het stopcontact gestopt is, zou de ESP na enkele seconden automatisch verbinding moeten maken
+
+## Mogelijke uitbreidingen voor toekomst
 
 ## Team
 De groep bestaat uit:  
@@ -30,8 +35,8 @@ Dit zijn de sensoren die we gaan gebruiken:
 - **NPK Sensor**: Meet de concentraties van stikstof (N), fosfor (P), en kalium (K) in de bodem.
 
 ### Meer informatie nodig?
-  - [Readme algemene informatie](./Documentatie/Algemene%20info%20componenten/README.md)
-
+  - [Algemene informatie sensoren](./Documentatie/Algemene%20info%20componenten/README.md)
+  - [Handleiding](./Documentatie/handleiding.md)
 
 ## Bill of Materials (BOM)
 
