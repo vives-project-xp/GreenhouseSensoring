@@ -25,6 +25,7 @@ We denken dat het slimmer is om per plantje een esp te gebruiken zodat je geen d
 ## Verbeterde Aansluitingen
 Kijken om de draadjes met krimpkousen aan te sluiten, nu hebben we dit met plakband gedaan omdat de krimkous op was.
 Ook zouden we dan een doorzichtig doosje printen omdat dit nu in een doordoorzichtig doosje zit waarin we gaten hebben moeten boren. Met een eigen 3D doosje kunnen we afstellen waar er gaten moeten komen en zal dit netjes zijn.
+Het 3D doosje groter maken in breedte in hoogte en vakjes maken voor de wago's mooi te plaatsen.
 
 ## Geautomatiseerde Rapportage
 Indien het mogelijk is zou het project rechstreeks kunnen data sturen naar project "light and heat" om deze data in te werken in hun project. Want nu loopt alles nog via het dashboard waar zij het moeten opvragen.
