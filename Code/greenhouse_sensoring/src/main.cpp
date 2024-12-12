@@ -41,8 +41,8 @@ MHZ19 myMHZ19;
 SoftwareSerial mySerial(RX_CO2, TX_CO2);
 
 //npk sensor
-#define RX_PIN 4 // Set RX to GPIO4
-#define TX_PIN 5 // Set TX to GPIO5
+#define RX_PIN 4 // Set RX to GPIO4 (voor esp met usbc pin 4)02
+#define TX_PIN 5 // Set TX to GPIO5 (voor esp met usbc pin 5)03
 
 #define RE 2
 #define DE 15
