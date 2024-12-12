@@ -5,9 +5,14 @@
 - [GreenhouseSensoring](#greenhousesensoring)
   - [Inhoudsopgave](#inhoudsopgave)
   - [Doel](#doel)
+  - [Gebruik](#gebruik)
+  - [Mogelijke uitbreidingen voor toekomst](#mogelijke-uitbreidingen-voor-toekomst)
   - [Team](#team)
   - [Sensoren](#sensoren)
     - [Meer informatie nodig?](#meer-informatie-nodig)
+  - [Alle sensoren uitgelegd:](#alle-sensoren-uitgelegd)
+  - [Handleiding om nieuwe sensoren toe te voegen:](#handleiding-om-nieuwe-sensoren-toe-te-voegen)
+  - [Toekomstige Uitbreidingen:](#toekomstige-uitbreidingen)
   - [Bill of Materials (BOM)](#bill-of-materials-bom)
 
 ## Doel
@@ -35,14 +40,20 @@ Dit zijn de sensoren die we gaan gebruiken:
 - **NPK Sensor**: Meet de concentraties van stikstof (N), fosfor (P), en kalium (K) in de bodem.
 
 ### Meer informatie nodig?
+## Alle sensoren uitgelegd:
   - [Algemene informatie sensoren](./Documentatie/Algemene%20info%20componenten/README.md)
+
+## Handleiding om nieuwe sensoren toe te voegen:
   - [Handleiding](./Documentatie/handleiding.md)
+
+## Toekomstige Uitbreidingen:
+  - [Uitbreidingen](./Documentatie/Mogelijke_uitbreiding.md)
 
 ## Bill of Materials (BOM)
 
 
-| **Aantal** | **Korte Omschrijving**                      | **Totale Kostprijs (excl. BTW)** |
-|------------|----------------------------------------------|-----------------------------------|
+| **Aantal** | **Korte Omschrijving**                       | **Totale Kostprijs (excl. BTW)** |
+|------------|----------------------------------------------|----------------------------------|
 | 1          | ESP                                          | € 9,50                           |
 | 1          | Adapter voor ESP                             | € 3,22                           |
 | 1          | Temperatuurs/vochtigheid sensor              | € 3,30                           |
