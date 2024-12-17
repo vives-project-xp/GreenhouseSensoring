@@ -6,7 +6,7 @@
 #include "MHZ19.h"
 #include "sensor.h"
 #include "connection.h"
-#include "Wifi_config.h"
+#include "info.h"
 #include "SoftwareSerial.h"
 #include <HardwareSerial.h>
 
@@ -41,8 +41,8 @@ MHZ19 myMHZ19;
 SoftwareSerial mySerial(RX_CO2, TX_CO2);
 
 //npk sensor
-#define RX_PIN 4 // Set RX to GPIO4 (voor esp met usbc pin 4)02
-#define TX_PIN 5 // Set TX to GPIO5 (voor esp met usbc pin 5)03
+#define RX_PIN 4 // Set RX to GPIO4 (voor esp met usbc pin 4)02 16x
+#define TX_PIN 5 // Set TX to GPIO5 (voor esp met usbc pin 5)03 17
 
 #define RE 2
 #define DE 15
@@ -86,8 +86,6 @@ void setup()
   pinMode(RE, OUTPUT);
   pinMode(DE, OUTPUT);
 
-  //npkSerial.begin(9600, SERIAL_8N1, RX_PIN, TX_PIN);
-
   if (!htu.begin()) {
     Serial.println("HTU21DF initialisatie mislukt! Controleer de verbinding.");
 }
@@ -103,14 +101,14 @@ if (!lightMeter.begin()) {
     return;
 
   bodemTempWaarde = HaSensor("Soil_temp",SensorType::TEMPERATURE,-20,120);
-  //omgevingTempWaarde = HaSensor("Ambient_temp", SensorType::TEMPERATURE);
-  //omgevingVochtWaarde = HaSensor("ambient_Humidity",SensorType::TEMPERATURE);
+  //omgevingTempWaarde = HaSensor("Ambient_temp", SensorType::TEMPERATURE,-20,120);
+  //omgevingVochtWaarde = HaSensor("ambient_Humidity",SensorType::TEMPERATURE,0,100);
   bodemVochtWaarde = HaSensor("soil_humidity",SensorType::HUMIDITY,0,100);
-  NPKWaardeNitro = HaSensor("npkNitro", SensorType::NITROGEN,0,2999);
-  NPKWaardePhos = HaSensor("npkPhos", SensorType::PHOSPHORUS,0,2999);
-  NPKWaardePota = HaSensor("npkPota", SensorType::POTASSIUM,0,2999);
+  NPKWaardeNitro = HaSensor("npkNitro", SensorType::NITROGEN,0,1000);
+  NPKWaardePhos = HaSensor("npkPhos", SensorType::PHOSPHORUS,0,1000);
+  NPKWaardePota = HaSensor("npkPota", SensorType::POTASSIUM,0,1000);
   CO2Waarde = HaSensor("CO2",SensorType::CO2,0,10000);
-  lichtWaarde = HaSensor("Light", SensorType::LIGHT,0,65535);
+  lichtWaarde = HaSensor("Light", SensorType::LIGHT,0,10000);
 
   delay(500); //voor npk 
 }
@@ -165,15 +163,15 @@ void loop() {
   float temp = htu.readTemperature();
   float rel_hum = htu.readHumidity();
 
-  Serial.print("Omgevingstemperatuur: ");
-  Serial.print(temp);
-  Serial.println(" °C");
-  Serial.println("");
+  // Serial.print("Omgevingstemperatuur: ");
+  // Serial.print(temp);
+  // Serial.println(" °C");
+  // Serial.println("");
 
-  Serial.print("Omgevingsvochtigheid: ");
-  Serial.print(rel_hum);
-  Serial.println(" %");
-  Serial.println("");
+  // Serial.print("Omgevingsvochtigheid: ");
+  // Serial.print(rel_hum);
+  // Serial.println(" %");
+  // Serial.println("");
 
   float lux = lightMeter.readLightLevel();
   Serial.print("Light: ");
@@ -186,21 +184,6 @@ void loop() {
   Serial.print(CO2);
   Serial.println(" ppm");
 
-  //voor sturen van lux waardes naar esp van light&heat
-//   HTTPClient http; // Maak een HTTP client-object
-//   http.begin("http://esp2.local/data"); 
-//   http.addHeader("Content-Type", "application/x-www-form-urlencoded"); 
-//   int httpResponseCode = http.POST("value=" + String(lux)); 
-//   if (httpResponseCode > 0) {
-//       Serial.print("HTTP Response code: ");
-//       Serial.println(httpResponseCode);
-//   } else {
-//       Serial.print("Fout bij HTTP POST: ");
-//       Serial.println(http.errorToString(httpResponseCode).c_str());
-//   }
-//   http.end();
-
-
   bodemTempWaarde.setValue(Celsius);
   //omgevingTempWaarde.setValue(temp);
   //omgevingVochtWaarde.setValue(rel_hum);
@@ -212,7 +195,7 @@ void loop() {
   CO2Waarde.setValue(CO2);
   std::vector<HaSensor> sensors = {bodemTempWaarde, lichtWaarde, NPKWaardeNitro, NPKWaardePhos, NPKWaardePota, bodemVochtWaarde, CO2Waarde};
   connection.sendData("Sensoring", sensors);
-  delay(5000);
+delay(5000);
 
 }
 

@@ -1,9 +1,14 @@
-# Handleiding voor Sensoren
+# Technische documentatie
+
+In dit document werd alle technische documentatie van de testopstelling samengebracht, zodat eventueel verder gebouwd kan worden hierop.
+
+TODO: uitleggen hoe tijdelijke esp vervangen met (nieuwe) definitieve (kabels weg en plaatsen en welke pinnen veranderen)
+
+TODO: omgevingstemp aanbrengen
 
 ## Inhoudsopgave
 
-  [Handleiding voor Sensoren](#handleiding-voor-sensoren)
-- [Handleiding voor Sensoren](#handleiding-voor-sensoren)
+- [Technische documentatie](#Technische-documentatie)
   - [Inhoudsopgave](#inhoudsopgave)
   - [Inleiding](#inleiding)
     - [Stap 1](#stap-1)

@@ -15,10 +15,10 @@
 - [Bill of Materials (BOM)](#bill-of-materials-bom)
 
 ## Doel
-Dit project heeft als einddoel het meten van verschillende eigenschappen in de serre en deze uitlezen met Home Assistant. Aan de hand van 6 sensoren, die in totaal 9 verschillende parameters doorsturen, worden metingen opgenomen via een ESP32 microcontroller. Deze ESP32 stuurt dan via het lokale netwerk de gemeten waardes door naar de lokale Home Assistant server, waar ze op een visuele manier mooi voorgesteld kunnen worden. Op die manier kan informatie opgedaan worden om de planten zo goed mogelijk te verzorgen. Want meten is weten!
+Dit project heeft als einddoel het maken van testopstelling voor het meten van verschillende eigenschappen in de serre m.b.v. sensoren en deze waarden uit te lezen met Home Assistant. Aan de hand van 6 sensoren, die in totaal 9 verschillende parameters doorsturen, worden metingen opgenomen via een ESP32 microcontroller. Deze ESP32 stuurt dan via het lokale netwerk de gemeten waardes door naar de lokale Home Assistant server, waar ze op een visuele manier mooi voorgesteld kunnen worden. Op die manier kan informatie opgedaan worden om de planten zo goed mogelijk te verzorgen. Want meten is weten! Daarnaast werd ook technische documentatie en een lijst van mogelijke uitbreidingen/verbeteringen opgesteld zodat hierop verder gebouwd kan worden. Ook is er een handleiding ter beschikking voor mensen die de verkregen data willen gebruiken.
 
 ## Gebruik
-Het gebruiken van het product is vrij simpel. Wanneer deze in het stopcontact gestopt is, zou de ESP na enkele seconden automatisch verbinding moeten maken
+Het gebruiken van het product is vrij simpel. Wanneer deze in het stopcontact gestopt is, zou de ESP na enkele seconden automatisch verbinding moeten maken. Als deze verbinding kan maken met het Devbit netwerk, zullen de waarden doorgestuurd worden naar home assistant. Indien geen verbinding gemaakt kan worden, zal ook niets verstuurd kunnen worden (ook eventuele seriële data zal niet verstuurd worden). Voor enkele sensoren kan het enkele seconden tot een minuutje duren voor ze hun waardes doorsturen.
 
 
 ## Team
@@ -44,7 +44,10 @@ Dit zijn de sensoren die we gaan gebruiken:
 ## Handleiding om nieuwe sensoren toe te voegen:
   - [Handleiding](./Documentatie/handleiding.md)
 
-## Toekomstige Uitbreidingen:
+## Technische documentatie:
+- [Technische documentatie](./Documentatie/Technische_documentatie.md)
+
+## Tips voor mogelijke uitbreidingen en verbeteringen:
   - [Uitbreidingen](./Documentatie/Mogelijke_uitbreiding.md)
 
 # Bill of Materials (BOM)
