@@ -21,12 +21,11 @@ Omdat wij de functionaliteit willen aantonen van dit concept, en bijkomend ook m
 - Chlorofylsensor
   - Meet het chlorofylgehalte in de bladeren.
 - UV-sensor
-  - Meet hoeveel UV-straling er is
+  - Meet hoeveel UV-straling er is (niet hetzelfde al onze sensor die de lichtintensiteit meet uitgedrukt in lux)
 
-## Verbeterde Aansluitingen
-Kijken om de draadjes met krimpkousen aan te sluiten, nu hebben we dit met plakband gedaan omdat de krimkous op was.
-Ook zouden we dan een doorzichtig doosje printen omdat dit nu in een doordoorzichtig doosje zit waarin we gaten hebben moeten boren. Met een eigen 3D doosje kunnen we afstellen waar er gaten moeten komen en zal dit netjes zijn. Daarbij moet dit ook in een speciaal printmateriaal geprint worden dat tegen zonlicht kan.
-Het 3D doosje groter maken in breedte in hoogte en vakjes maken voor de wago's mooi te plaatsen.
+## Verbeterde Aansluitingen en ontwerp
+Het kan handig zijn om de draadjes met krimpkousen aan te sluiten, nu hebben we dit met plakband gedaan omdat er geen krimpkous of dergelijk materiaal ter beschikking. Ook zou het goed zijn om voor de lichtintensiteitsensor een doosje te printen in doorzichtige print, wat voor ons niet mogelijk was. Wij gebruikten hiervoor een bestaand doorzichtig doosje, maar dit is uiteraard niet specifiek afgestemd op dit product. Daarbij moet dit ook in een speciaal printmateriaal geprint worden dat tegen zonlicht kan.
+Tot slot zou het kunnen helpen om het 3D doosje groter maken in breedte en in hoogte en vakjes te maken om de wago's netjes in te plaatsen. Wij maakten ook geen gebruik van een specifiek ontworpen PCB, grotendeels omwille van de kost. Het adapterbordje voor de ESP zorgt voor een behoorlijke nette oplossing. Indien hiervan meerdere producten gemaakt zouden worden, is een PCB uiteraard een optie.
 
 ## Veiligheidsverbeteringen
-Proberen om te kijken om het project meer waterdicht te maken.
+Mede doordat we gebruik maken van een CO2 sensor die voortdurend wat luchttoevoer moet hebben en we de componenten ook wat wilden verluchten, kozen we ervoor om aan de zijkant van ons doosje gleufjes te plaatsen. Echter is het product hierdoor in principe niet 100 procent waterdicht. Een mogelijke oplossing hiervoor kan het plaatsen van een speciale plastic over het doosje (met open onderkant) dat opengeritst kan worden als men het doosje wil openen.

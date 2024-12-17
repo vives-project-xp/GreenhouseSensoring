@@ -10,12 +10,15 @@
   - [Sensoren](#sensoren)
 - [Meer informatie nodig?](#meer-informatie-nodig)
   - [Alle sensoren uitgelegd:](#alle-sensoren-uitgelegd)
-  - [Handleiding om nieuwe sensoren toe te voegen:](#handleiding-om-nieuwe-sensoren-toe-te-voegen)
-  - [Toekomstige Uitbreidingen:](#toekomstige-uitbreidingen)
+  - [Handleiding voor gebruikers:](#handleiding-voor-gebruikers)
+  - [Technische documentatie:](#technische-documentatie)
+  - [Tips voor mogelijke uitbreidingen en verbeteringen](#tips-voor-mogelijke-uitbreidingen-en-verbeteringen)
 - [Bill of Materials (BOM)](#bill-of-materials-bom)
 
 ## Doel
-Dit project heeft als einddoel het maken van testopstelling voor het meten van verschillende eigenschappen in de serre m.b.v. sensoren en deze waarden uit te lezen met Home Assistant. Aan de hand van 6 sensoren, die in totaal 9 verschillende parameters doorsturen, worden metingen opgenomen via een ESP32 microcontroller. Deze ESP32 stuurt dan via het lokale netwerk de gemeten waardes door naar de lokale Home Assistant server, waar ze op een visuele manier mooi voorgesteld kunnen worden. Op die manier kan informatie opgedaan worden om de planten zo goed mogelijk te verzorgen. Want meten is weten! Daarnaast werd ook technische documentatie en een lijst van mogelijke uitbreidingen/verbeteringen opgesteld zodat hierop verder gebouwd kan worden. Ook is er een handleiding ter beschikking voor mensen die de verkregen data willen gebruiken.
+Dit project heeft als einddoel het maken van testopstelling voor het meten van verschillende eigenschappen in de serre m.b.v. sensoren en deze waarden uit te lezen met Home Assistant. Aan de hand van 6 sensoren, die in totaal 9 verschillende parameters doorsturen, worden metingen opgenomen via een ESP32 microcontroller. Deze ESP32 stuurt dan via het lokale netwerk de gemeten waardes door naar de lokale Home Assistant server, waar ze op een visuele manier mooi voorgesteld kunnen worden. Op die manier kan informatie opgedaan worden om de planten zo goed mogelijk te verzorgen. Want meten is weten! 
+
+Daarnaast werd ook [technische documentatie](./Documentatie/Technische_documentatie.md) en een [lijst van mogelijke uitbreidingen/verbeteringen](./Documentatie/Mogelijke_uitbreiding.md) opgesteld zodat hierop verder gebouwd kan worden. Ook is er een [handleiding](./Documentatie/Handleiding_gebruiker.md) ter beschikking voor mensen die het product willen gebruiken.
 
 ## Gebruik
 Het gebruiken van het product is vrij simpel. Wanneer deze in het stopcontact gestopt is, zou de ESP na enkele seconden automatisch verbinding moeten maken. Als deze verbinding kan maken met het Devbit netwerk, zullen de waarden doorgestuurd worden naar home assistant. Indien geen verbinding gemaakt kan worden, zal ook niets verstuurd kunnen worden (ook eventuele seriële data zal niet verstuurd worden). Voor enkele sensoren kan het enkele seconden tot een minuutje duren voor ze hun waardes doorsturen.
@@ -41,7 +44,7 @@ Dit zijn de sensoren die we gaan gebruiken:
 ## Alle sensoren uitgelegd:
   - [Algemene informatie sensoren](./Documentatie/Algemene%20info%20componenten/README.md)
 
-## Handleiding om nieuwe sensoren toe te voegen:
+## Handleiding voor gebruikers:
   - [Handleiding](./Documentatie/handleiding.md)
 
 ## Technische documentatie:
