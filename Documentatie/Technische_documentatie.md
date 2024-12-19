@@ -2,10 +2,6 @@
 
 In dit document werd alle benodigde technische documentatie van de testopstelling samengebracht om eventueel te kunnen bouwen hierop. Specifieke schema's of datasheets zijn te vinden onder de mapjes [Hardware](../Hardware/) en [Datasheets](../Datasheets/). Mogelijke uitbreidingen of verbeteringen voor het product zijn in [dit bestand](./Mogelijke_uitbreiding.md) te vinden. Ook is er een [handleiding](./Handleiding_gebruiker.md) voor het gebruik van het product als eindgebruiker. Het wordt aangeraden om al deze documenten eerst door te nemen alvorens dit document te gebruiken.
 
-TODO: uitleggen hoe tijdelijke esp vervangen met (nieuwe) definitieve (kabels weg en plaatsen en welke pinnen veranderen)
-
-TODO: omgevingstemp aanbrengen
-
 ## Inhoudsopgave
 
 - [Technische documentatie](#Technische-documentatie)
